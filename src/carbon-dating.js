@@ -1,4 +1,5 @@
 import { NotImplementedError } from '../extensions/index.js';
+import {assert} from "chai";
 
 const MODERN_ACTIVITY = 15;
 const HALF_LIFE_PERIOD = 5730;
@@ -17,7 +18,8 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-export default function dateSample(/* sampleActivity */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function dateSample(finalActivity) {
+  if (typeof finalActivity !== 'string' || !isFinite(finalActivity) || +finalActivity <= 0) return false
+  const t = Math.log(MODERN_ACTIVITY / +finalActivity)/(Math.log(2) / HALF_LIFE_PERIOD)
+  return t <= 0 ? false : Math.ceil(t)
 }

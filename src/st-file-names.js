@@ -15,7 +15,33 @@ import { NotImplementedError } from '../extensions/index.js';
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
-export default function renameFiles(/* names */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function renameFiles(names) {
+  let files = {}
+  for(let i = 0; i < names.length; i++) {
+    if (files.hasOwnProperty(names[i])){
+      const index = Object.getOwnPropertyDescriptor(files, names[i]).value
+      Object.defineProperty(files, names[i], {
+        value: index + 1,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
+      Object.defineProperty(files, `${names[i]}(${index+1})`, {
+        value: 0,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
+    }
+    else {
+      Object.defineProperty(files, names[i], {
+        value: 0,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      })
+    }
+
+  }
+  return Object.keys(files)
 }

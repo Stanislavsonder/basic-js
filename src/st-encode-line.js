@@ -10,7 +10,20 @@ import { NotImplementedError } from '../extensions/index.js';
  * For aabbbc should return 2a3bc
  *
  */
-export default function encodeLine(/* str */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function encodeLine(str) {
+    let res = ''
+    let tmpStr = ''
+    for (let i = 0; i <= str.length; i++) {
+      if (tmpStr.length) {
+        if (tmpStr[0] === str[i]) tmpStr+=str[i]
+        else {
+          res += tmpStr.length>1? tmpStr.length+''+tmpStr[0]:tmpStr[0]
+          tmpStr = str[i]
+        }
+      }
+      else {
+        tmpStr = str[i]
+      }
+    }
+    return res
 }

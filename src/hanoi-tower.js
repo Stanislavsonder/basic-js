@@ -22,6 +22,6 @@ export default function calculateHanoi(disksNumber, turnsSpeed) {
   turns = parseInt('1'+turns,2) - 1
   return {
     turns: turns,
-    seconds: Math.floor(turnsSpeed / 3600) * Math.floor(turns)
+    seconds: Math.floor(turns / (turnsSpeed / 3600))
   }
 }

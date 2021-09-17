@@ -18,6 +18,7 @@ export function testOptional(title, fn, isAsyncTest) {
   } else {
     it(title, function test() {
       try {
+
         fn.call(this);
       } catch (err) {
         if (err._specialProp === SPECIAL_PROP_VALUE) {

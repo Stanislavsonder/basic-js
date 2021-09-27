@@ -6,7 +6,7 @@ import { NotImplementedError } from '../extensions/index.js';
  * in the neighboring cells. Starting off with some arrangement of mines
  * we want to create a Minesweeper game setup.
  *
- * @param {Array<Array>} matrix
+ * @param {Array<Array>} booleanMatrix
  * @return {Array<Array>}
  *
  * @example
@@ -23,7 +23,32 @@ import { NotImplementedError } from '../extensions/index.js';
  *  [1, 1, 1]
  * ]
  */
-export default function minesweeper (/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function minesweeper (booleanMatrix) {
+  function addBomb(matrix, i, j) {
+    const lenI = matrix.length
+    const lenJ = matrix[0].length
+
+    if (i + 1 < lenI) matrix[i+1][j]++
+    if (i - 1 >= 0) matrix[i-1][j]++
+    if (j + 1 < lenJ) matrix[i][j+1]++
+    if (j - 1 >= 0) matrix[i][j-1]++
+
+    if (i + 1 < lenI && j + 1 < lenJ) matrix[i+1][j+1]++
+    if (i + 1 < lenI && j - 1 >= 0) matrix[i+1][j-1]++
+    if (i - 1 >= 0 && j + 1 < lenJ) matrix[i-1][j+1]++
+    if (i - 1 >= 0 && j - 1 >= 0) matrix[i-1][j-1]++
+  }
+  const matrix = []
+  for (let i = 0; i < booleanMatrix.length; i++) {
+    matrix[i] = []
+    for (let j = 0; j < booleanMatrix[i].length; j++) {
+      matrix[i][j] = 0
+    }
+  }
+  for (let i = 0; i < booleanMatrix.length; i++) {
+    for (let j = 0; j < booleanMatrix[i].length; j++) {
+      if (booleanMatrix[i][j]) addBomb(matrix, i, j)
+    }
+  }
+  return matrix
 }

@@ -30,5 +30,4 @@ export default function getMatrixElementsSum(matrix) {
     }
   }
   return sum
-  // remove line with error and write your code here
 }

@@ -21,35 +21,34 @@ import { NotImplementedError } from '../extensions/index.js';
  */
 
 export default class VigenereCipheringMachine {
-  #reverseMode = null
-  #alph = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+  encrypt(){throw new NotImplementedError('Not implemented');}
+  decrypt(){throw new NotImplementedError('Not implemented');}
+
+  /*#reverseMode = null
+  #alph = ['a','b','c','d','e','f','g','h','j','k','l','m','n','o','p','q','r','s','t','v','w','x','y','z',' ']
 
   #toLetter(code) {
-    if (typeof code === 'string') return code
+    code = code >= 0? code : code + this.#alph.length
     return this.#alph[code % this.#alph.length]
   }
   #toCode(str) {
     return str.toLowerCase().split('').map(e=>{
       const index = this.#alph.indexOf(e)
       if (index === -1) {
-        return e
+        this.#alph.push(e)
+        return this.#alph.length-1
       }
       return index
     })
   }
   constructor(mode) {
-    this.#reverseMode = mode | false;
+    this.#reverseMode = mode === true || mode === undefined;
   }
-
   encrypt(message, key) {
     if (!(typeof message === 'string') || !(typeof key === 'string')) throw new Error('Incorrect arguments!')
     message = this.#toCode(message)
     key = this.#toCode(key)
     for (let i = 0, j = 0; i < message.length; i++, j = j >= key.length-1?0:j+1) {
-      if (typeof message[i] === 'string') {
-        j--
-        continue
-      }
       message[i] = this.#toLetter(message[i] + key[j])
     }
     return this.#reverseMode?message.reverse().join('').toUpperCase():message.join('').toUpperCase()
@@ -60,14 +59,9 @@ export default class VigenereCipheringMachine {
     message =  this.#reverseMode?this.#toCode(message).reverse():this.#toCode(message)
     key = this.#toCode(key)
     for (let i = 0, j = 0; i < message.length; i++, j = j >= key.length-1?0:j+1) {
-      if (typeof message[i] === 'string') {
-        j--
-        continue
-      }
-      let index = message[i] - key[j]
-      message[i] = this.#toLetter(index>0?index:this.#alph.length + index)
+      message[i] = this.#toLetter(message[i] - key[j])
     }
     return message.join('').toUpperCase()
-  }
+  }*/
 }
 
